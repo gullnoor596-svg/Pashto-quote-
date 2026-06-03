@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,
+initial-scale=1.0,
+maximum-scale=1.0,
+user-scalable=no">
+
+<title>پشتو اقوال</title>
+
+<!-- TITLE FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+  margin:0;
+  background:#0f172a;
+  color:white;
+}
+
+/* TITLE */
+.header{
+  text-align:center;
+  padding:15px;
+  font-size:32px;
+  font-weight:700;
+
+  font-family:'Noto Nastaliq Urdu', serif;
+}
+
+/* SEARCH */
+.searchBox{
+  display:flex;
+  justify-content:center;
+  padding:10px;
+}
+
+input{
+  width:80%;
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  outline:none;
+  text-align:center;
+
+  font-family:'Noto Naskh Arabic', serif;
+}
+
+/* CARD */
+.card{
+
+  margin:12px;
+
+  padding:18px;
+
+  border-radius:18px;
+
+  background:
+  linear-gradient(
+  135deg,
+  #1e293b,
+  #111827);
+
+  border:1px solid
+  rgba(255,255,255,.08);
+
+  box-shadow:
+  0 6px 18px rgba(0,0,0,.25);
+
+  transition:
+  transform .25s ease,
+  box-shadow .25s ease;
+
+  will-change: transform;
+
+}
+
+/* Smooth hover only */
+.card:hover{
+
+  transform:
+  translateY(-4px);
+
+  box-shadow:
+  0 10px 25px rgba(0,0,0,.35);
+
+}
+
+/* Simple fade-in (lightweight) */
+.card{
+
+  animation:fadeIn .25s ease;
+
+}
+
+@keyframes fadeIn{
+
+  from{
+    opacity:0;
+    transform:translateY(10px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+}
+
+.card:hover{
+  transform:translateY(-3px);
+}
+
+/* PASHTO TEXT */
+.pashtoText{
+  font-family:'Scheherazade New','Noto Naskh Arabic', serif;
+  direction:rtl;
+  text-align:right;
+  font-size:14px;
+  font-weight:700;
+  line-height:2.1;
+}
+
+/* URDU TEXT */
+.urduText{
+  direction:rtl;
+  text-align:right;
+
+  font-family:'Noto Nastaliq Urdu', serif;
+
+  font-size:15px; /* URDU SIZE */
+
+  line-height:2.2;
+
+  margin-top:6px;
+}
+
+/* BUTTON */
+button{
+  margin-top:10px;
+  padding:6px 12px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+/* COPY */
+.copy{
+
+  width:300px;
+
+  margin:12px auto 0 auto;
+
+  display:block;
+
+  padding:8px;
+
+  border:none;
+
+  border-radius:5px;
+
+  cursor:pointer;
+
+  color:#fff;
+
+  font-size:15px;
+
+  font-weight:700;
+
+  background:#22c55e;
+
+  box-shadow:0 4px 12px rgba(34,197,94,.25);
+
+}
+
+/* No animation, only simple hover */
+.copy:hover{
+  background:#16a34a;
+}
+
+/* clean click feel */
+.copy:active{
+  background:#15803d;
+}
+
+@keyframes gradientMove{
+
+  0%{
+    background-position:0% 50%;
+  }
+
+  50%{
+    background-position:100% 50%;
+  }
+
+  100%{
+    background-position:0% 50%;
+  }
+
+}
+
+@keyframes shine{
+
+  100%{
+    left:160%;
+  }
+
+}
+
+/* LOAD MORE */
+.load{
+  background:#3b82f6;
+  color:white;
+
+  width:50%;
+  margin:15px auto;
+
+  display:block;
+
+  padding:10px;
+
+  border-radius:8px;
+}
+
+/* LIST */
+#list{
+  padding:5px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- TITLE -->
+<div class="header">
+پشتون یم ذہ
+</div>
+
+<!-- SEARCH -->
+<div class="searchBox">
+
+<input
+type="text"
+id="search"
+placeholder="یہاں تلاش کریں..."
+onkeyup="filterData()">
+
+</div>
+
+<!-- LIST -->
+<div id="list"></div>
+
+<!-- LOAD MORE -->
+<button class="load" onclick="loadMore()">
+مزید دیکھیں
+</button>
+
+<script>
+
+// ===== DATA =====
+const customQuotes = [
+
+{
+  id:1,
+  show:" زما نصیب كي جانان نشته",
+  show2:"میرے نصیب میں محبوب نہیں ہے",
+  copy:"ﻪﺘﺸﻧ ﻥﺎﻧﺎﺟ ﻲﻛ ﺐﻴﺼﻧ ﺎﻣﺯ"
+},
+
+{
+  id:2,
+  show:"ورشہ دیار خبر دے واخلہ",
+  show2:"جاؤ اپنے محجوب کی خبر لے لو",
+  copy:"ﮧﻠﺧﺍﻭ ﮮﺩ ﺮﺒﺧ ﺭﺎﻳﺩ ﮧﺷﺭﻭ"
+},
+
+{
+  id:3,
+  show:"مینا زما وی نصیب دا بل شی",
+  show2:"میری محبت کسی اور کا مقدر بن گئی",
+  copy:"ﻰﺷ ﻞﺑ ﺍﺩ ﺐﻴﺼﻧ ﻯﻭ ﺎﻣﺯ ﻪﻨﻴﻣ"
+},
+
+{
+  id:4,
+  show:"دلته نفرت انعام دى مينه سزا",
+  show2:"یہاں نفرت انعام ہے، محبت سزا",
+  copy:"ﺍﺰﺳ ﻪﻨﻴﻣ ﻯﺩ ﻡﺎﻌﻧﺍ ﺕﺮﻔﻧ ﻪﺘﻟﺩ"
+},
+
+{
+  id:5,
+  show:"دلته مينه كول كفر دي",
+  show2:"یہاں محبت کرنا کفر ہے",
+  copy:"ﻱﺩ ﺮﻔﻛ ﻝﻮﻛ ﻪﻨﻴﻣ ﻪﺘﻟﺩ"
+},
+
+{
+  id:6,
+  show:"دلته مينه وكڑه، خو زڑه مات شو",
+  show2:"یہاں محبت کی، لیکن دل ٹوٹ گیا",
+  copy:"ﻮﺷ ﺕﺎﻣ ﻩﮌﺯ ﻮﺧ ،ﻩﮍﻛﻭ ﻪﻨﻴﻣ ﻪﺘﻟﺩ"
+},
+
+{
+  id:7,
+  show:"زہ دے گل كڑم زان دے خاؤرے",
+  show2:"ﮮﺭﺅﺎﺧ ﮮﺩ ﻥﺍﺯ ﻡﮍﻛ ﻞﮔ ﮮﺩ ﮦﺯ",
+  copy:" مجھے پھول بنا دیا اور خود کو مٹی"
+},
+
+{
+  id:8,
+  show:"وايه زان درته لوگے كڑم",
+  show2:"بولو خود کو تم پہ قربان کروں",
+  copy:"ﻡﮍﻛ ﮯﮔﻮﻟ ﻪﺗﺭﺩ ﻥﺍﺯ ﻪﻳﺍﻭ"
+},
+
+{
+  id:9,
+  show:"خدایا زما جانان زما کے",
+  show2:"خدایا میرے محبوب کو میرا کر دے",
+  copy:"ﮯﻛ ﺎﻣﺯ ﻥﺎﻧﺎﺟ ﺎﻣﺯ ﻪﻳﺍﺪﺧ"
+},
+
+{
+  id:10,
+  show:"اللہ دے واخلا بے وفا یارا",
+  show2:"اللہ اٹھالے بے وفا یار",
+  copy:"ﺍﺭﺎﻳ ﺎﻓﻭ ﮯﺑ ﻼﺧﺍﻭ ﮮﺩ ﮧﻠﻟﺍ"
+},
+
+{
+  id:11,
+  show:"قرارا راشا، قرارا راشا",
+  show2:"سکون آجائے، سکون آجائے",
+  copy:"ﺎﺷﺍﺭ ﺍﺭﺍﺮﻗ ،ﺎﺷﺍﺭ ﺍﺭﺍﺮﻗ"
+},
+
+{
+  id:12,
+  show:"چی مسافر جانان می راشی",
+  show2:"جب میرا مسافر جانان آجائے",
+  copy:"ﻰﺷﺍﺭ ﻰﻣ ﻥﺎﻧﺎﺟ ﺮﻓﺎﺴﻣ ﻰﭼ"
+},
+
+{
+  id:13,
+  show:"بغیر له تا وختونه نه تیریگی",
+  show2:"بغیر تمہارے وقت نہیں گزر رہا",
+  copy:"ﻰﮕﻳﺮﻴﺗ ﻪﻧ ﻪﻧﻮﺘﺧﻭ ﺎﺗ ﻪﻟ ﺮﻴﻐﺑ"
+},
+
+{
+  id:14,
+  show:"زه یې په دیدن پسې لیواله یم",
+  show2:"میں اُس کے دیدار کے لیے بے تاب ہوں",
+  copy:"ﻢﻳ ﻪﻟﺍﻮﻴﻟ ﻲﺴﭘ ﻥﺪﻳﺩ ﻪﭘ ﻲﻳ ﻩﺯ"
+},
+
+{
+  id:15,
+  show:"كه مى سل زله ژوندون وي زه به سل زله پختون يم",
+  show2:"اگر مجھے سو بار زندگی ملے، تو میں سو بار پختون ہی بنوں گا",
+  copy:"ﻢﻳ ﻥﻮﺘﺨﭘ ﻪﻟﺯ ﻞﺳ ﻪﺑ ﻩﺯ ﻱﻭ ﻥﻭﺪﻧﻭﮊ ﻪﻟﺯ ﻞﺳ ﻰﻣ ﻪﻛ"
+},
+
+{
+  id:16,
+  show:"داسه فلم نہ دے چى دوبارہ به ميلا ويگو پوئے شوے",
+  show2:"یہ کوئی فلم نہیں ہے کہ دوبارہ ملیں گے ۔۔ سمجھ گئے",
+  copy:"ﮮﻮﺷ ﮯﺋﻮﭘ ﻮﮕﻳﻭ ﻼﻴﻣ ﻪﺑ ﮦﺭﺎﺑﻭﺩ ﻰﭼ ﮮﺩ ﮧﻧ ﻢﻠﻓ ﻪﺳﺍﺩ"
+},
+
+{
+  id:17,
+  show:"خه در ته پته ده چى زه خراب يم",
+  show2:"تمہیں اچھی طرح پتہ ہے کہ میں خراب ہوں",
+  copy:"ﻢﻳ ﺏﺍﺮﺧ ﻩﺯ ﻰﭼ ﻩﺩ ﻪﺘﭘ ﻪﺗ ﺭﺩ ﻪﺧ"
+},
+
+{
+  id:18,
+  show:"مہ وايا خدائے ته چى زما مشكلات عٹ دى",
+  show2:"مت کہو خد ا سے کہ میری مشکلیں بڑی ہیں",
+  copy:"ﻯﺩ ﭧﻋ ﺕﻼﻜﺸﻣ ﺎﻣﺯ ﻰﭼ ﻪﺗ ﮯﺋﺍﺪﺧ ﺎﻳﺍﻭ ﮧﻣ"
+},
+
+{
+  id:19,
+  show:"مشكلات ته اووايا چى زما خدائے ڈير عٹ دے",
+  show2:"مشکلوں سے کہو کہ میرا خدا بہت بڑا ہے",
+  copy:"ﮮﺩ ﭧﻋ ﺮﻳﮈ ﮯﺋﺍﺪﺧ ﺎﻣﺯ ﻰﭼ ﺎﻳﺍﻭﻭﺍ ﻪﺗ ﺕﻼﻜﺸﻣ"
+},
+
+{
+  id:20,
+  show:"زه نه غواڑم نوره خوشالى پرورديگاه",
+  show2:"میں نہیں مانگتا اور خوشی پر وردگار",
+  copy:"ﻩﺎﮕﻳﺩﺭﻭﺮﭘ ﻰﻟﺎﺷﻮﺧ ﻩﺭﻮﻧ ﻡﮌﺍﻮﻏ ﻪﻧ ﻩﺯ"
+},
+
+{
+  id:21,
+  show:"كه مينہ اور شى پہ لمبو بہ در زم",
+  show2:"اگر محبت آگ ہو جائے شعلوں پر آؤں گا",
+  copy:"ﻡﺯ ﺭﺩ ﮧﺑ ﻮﺒﻤﻟ ﮧﭘ ﻰﺷ ﺭﻭﺍ ﮧﻨﻴﻣ ﻪﻛ"
+},
+
+{
+  id:22,
+  show:"ته جدائے خبرے كے گرزم پہ ويرہ",
+  show2:"تیری جدائی کی باتوں میں میں غمگین پھر رہا ہوں",
+  copy:"ﮦﺮﻳﻭ ﮧﭘ ﻡﺯﺮﮔ ﮯﻛ ﮮﺮﺒﺧ ﮯﺋﺍﺪﺟ ﻪﺗ"
+},
+
+{
+  id:23,
+  show:"دا اخپلہ زانہ در سره مينہ كوم ڈيره",
+  show2:"میں اپنے آپ سے زیادہ تم سے محبت کرتا ہوں",
+  copy:"ﻩﺮﻳﮈ ﻡﻮﻛ ﮧﻨﻴﻣ ﻩﺮﺳ ﺭﺩ ﮧﻧﺍﺯ ﮧﻠﭙﺧﺍ ﺍﺩ"
+},
+
+{
+  id:24,
+  show:"دا سے گرزم خوارو زار دِ يار په عشق",
+  show2:"ایسے پھر تا ہوں، خوار وزار ، یار کے عشق میں",
+  copy:"ﻖﺸﻋ ﻪﭘ ﺭﺎﻳ ِﺩ ﺭﺍﺯ ﻭﺭﺍﻮﺧ ﻡﺯﺮﮔ ﮯﺳ ﺍﺩ"
+},
+
+{
+  id:25,
+  show:"زه شوم هسي گناہ گار د يار په عشق",
+  show2:"یار کے عشق نے مجھے یوں گناہ گار بنا دیا ہے",
+  copy:"ﻖﺸﻋ ﻪﭘ ﺭﺎﻳ ﺩ ﺭﺎﮔ ﮦﺎﻨﮔ ﻲﺴﻫ ﻡﻮﺷ ﻩﺯ"
+},
+
+{
+  id:26,
+  show:"مينه ستا مي زندگى دا، خير كه ڈيرامے خواري ده",
+  show2:"تیری محبت ہی میری زندگی ہے، خیر ہے اگر اس میں بہت خواری بھی ہو",
+  copy:"ﻩﺩ ﻱﺭﺍﻮﺧ ﮯﻣﺍﺮﻳﮈ ﻪﻛ ﺮﻴﺧ ،ﺍﺩ ﻰﮔﺪﻧﺯ ﻲﻣ ﺎﺘﺳ ﻪﻨﻴﻣ"
+},
+
+{
+  id:27,
+  show:"ستادا مینے بہ وُو ناڑم، یارا کڑے مے قسم دے",
+  show2:"تمھاری محبت کو نہیں ٹھکراؤں گا، یار قسم ہے مجھے",
+  copy:"ﮮﺩ ﻢﺴﻗ ﮯﻣ ﮮﮍﻛ ﺍﺭﺎﻳ ،ﻡﮌﺎﻧ ﻭُﻭ ﮧﺑ ﮯﻨﻴﻣ ﺍﺩﺎﺘﺳ"
+},
+
+{
+  id:28,
+  show:"خلق پہ ہر سحر سہ وائی، وُوس مے تا سر ایاری دا",
+  show2:"لوگ ہر صبح کہتے ہیں، ابھی بھی تمہارے ساتھ دوستی ہے",
+  copy:"ﻩﺩ ﻱﺭﺎﻳ ﻩﺮﺳ ﺎﺗ ﻲﻣ ﺱﻭﺍ ﻲﻳﺍﻭ ﻪﺤﺛ ﺮﺤﺳ ﺮﻫ ﻪﭘ ﻖﻠﺧ"
+},
+
+{
+  id:29,
+  show:"تازه تازه گلان دري څلور مالا راوڑه",
+  show2:"تین یا چار تازہ پھول میرے لیے لے آؤ",
+  copy:"ﻩﮌﻭﺍﺭ ﻻﺎﻣ ﺭﻮﻠﺤﺛ ﻱﺭﺩ ﻥﻼﮔ ﻩﺯﺎﺗ ﻩﺯﺎﺗ"
+},
+
+{
+  id:30,
+  show:"دا جووند مے ستا دا پارا  دا مینا ستا دا پارا",
+  show2:"میرا جینا آپ لیے ہے   یہ محبت آپ لیے ہے",
+  copy:"ﺍﺭﺎﭘ ﺍﺩ ﺎﺘﺳ ﺎﻨﻴﻣ ﺍﺩ  ﺍﺭﺎﭘ ﺍﺩ ﺎﺘﺳ ﮯﻣ ﺪﻧﻭﻮﺟ ﺍﺩ"
+},
+
+{
+  id:31,
+  show:"خامخہ می سوازئی پہ لمبود غمہ",
+  show2:"بلاوجہ مجھے جلارہی ہے غم کے شغلوں میں",
+  copy:"ﻢﻏ ﺩ ﻮﺒﻤﻟ ﻪﭘ ﻱﻭﺯﻮﺳ ﻰﻣ ﺎﺨﻣﺎﺧ"
+},
+
+{
+  id:32,
+  show:"زما عادت دے یار پہ سترگو خکولا ومہ",
+  show2:"میری عادت ہے محبوب کو آنکھوں پہ چومتا ہوں",
+  copy:"ﮧﻣﻭ ﻻﻮﻜﺧ ﻮﮔﺮﺘﺳ ﮧﭘ ﺭﺎﻳ ﮮﺩ ﺕﺩﺎﻋ ﺎﻣﺯ"
+},
+
+{
+  id:33,
+  show:"گل می پہ لاس کے مڑاوے کیگی",
+  show2:"پھول میرے ہاتھ میں مرجھا رہا ہے",
+  copy:"ﻰﮕﻴﻛ ﮮﻭﺍﮍﻣ ﮯﻛ ﺱﻻ ﮧﭘ ﻰﻣ ﻞﮔ"
+},
+
+{
+  id:34,
+  show:"کورونہ ي وران شہ چی په زور ي وداوینہ",
+  show2:"گھر ان کے برباد ہوں جو زبر دستی شادی کرواتے ہیں",
+  copy:"ﮧﻨﻳﻭﺍﺩﻭ ﻱ ﺭﻭﺯ ﻪﭘ ﻰﭼ ﮧﺷ ﻥﺍﺭﻭ ﻱ ﻪﻧﻭﺭﻮﻛ"
+},
+
+{
+  id:35,
+  show:"زڑہ می لہ سترگو گیلہ من شو",
+  show2:"میرے دل کی آنکھو سے سے شکایت ہو گئ",
+  copy:"ﻮﺷ ﻦﻣ ﻪﻠﻴﮔ ﻮﮔﺮﺘﺳ ﻪﻟ ﻰﻣ ﻩﮌﺯ"
+},
+
+{
+  id:36,
+  show:"چی دیدین تہ کڑے ہسے غم زہ تیرہ ومہ",
+  show2:"کہ دیدار تم کرتے ہو ویسے غم میں گزارتا ہوں",
+  copy:"ﮧﻣﻭ ﮦﺮﻴﺗ ﮦﺯ ﻢﻏ ﮯﺴﮨ ﮮﮍﻛ ﻪﺗ ﻦﻳﺪﻳﺩ ﻰﭼ"
+},
+
+{
+  id:37,
+  show:"زمکہ اوده آسمان اودہ دے ٹول جہان جہان او دہ دے",
+  show2:"زمین سوئی آسمان سویا ہے سارا جہان جہان سویا ہے",
+  copy:"ﮮﺩ ﮦﺩ ﻭﺍ ﻥﺎﮩﺟ ﻥﺎﮩﺟ ﻝﻮﭨ ﮮﺩ ﮦﺩﻭﺍ ﻥﺎﻤﺳﺁ ﻩﺩﻭﺍ ﻪﻜﻣﺯ"
+},
+
+{
+  id:38,
+  show:"شراب دمینے می پہ لپو سکلے دینہ",
+  show2:"شراب محبت کی میں نے دونوں ہاتھوں سے پی ہے",
+  copy:"ﮧﻨﻳﺩ ﮯﻠﻜﺳ ﻮﭙﻟ ﮧﭘ ﻰﻣ ﮯﻨﻴﻣﺩ ﺏﺍﺮﺷ"
+},
+
+{
+  id:39,
+  show:"د مسافر جانان پہ غم کے",
+  show2:"مسافر محجوب کے غم میں",
+  copy:"ﮯﻛ ﻢﻏ ﮧﭘ ﻥﺎﻧﺎﺟ ﺮﻓﺎﺴﻣ ﺩ"
+},
+
+{
+  id:40,
+  show:"دا بیوفا نامہ دے راکڑہ",
+  show2:"بے وفا کا نام تم نے مجھے دے دی",
+  copy:"ﮦﮍﻛﺍﺭ ﮮﺩ ﮧﻣﺎﻧ ﺎﻓﻮﻴﺑ ﺩا"
+},
+
+{
+  id:41,
+  show:"تا سہ لیدلے دی زما پہ زڑہ داغونہ",
+  show2:"ﮧﻧﻮﻏﺍﺩ ﮦﮌﺯ ﮧﭘ ﺎﻣﺯ ﻯﺩ ﮯﻟﺪﻴﻟ ﮧﺳ ﺎﺗ",
+  copy:" تم نے کہاں دیکھے ہیں میرے دل پہ داغ"
+},
+
+{
+  id:42,
+  show:"کله بہ یم کله بہ نہ یم",
+  show2:"کبھی ہونگا کبھی نہیں ہونگا",
+  copy:"ﻢﻳ ﻪﻧ ﻪﺑ ﻪﻠﻛ ﻢﻳ ﻪﺑ ﻪﻠﻛ"
+},
+
+{
+  id:43,
+  show:"جانان جانان جانان اودہ دے",
+  show2:"محبوب محبوب محبوب سویا ہے",
+  copy:"ﮮﺩ ﮦﺩﻭﺍ ﻥﺎﻧﺎﺟ ﻥﺎﻧﺎﺟ ﻥﺎﻧﺎﺟ"
+},
+
+{
+  id:44,
+  show:"زما جانانا سر کڑے دی لا بونا",
+  show2:"میرے جانان نے کیسا کھیلا ہے",
+  copy:"ﺎﻧﻮﺑ ﻻ یﺩ ﮮﮍﻛ ﺮﺳ ﻪﻧﺎﻧﺎﺟ ﺎﻣﺯ"
+},
+
+{
+  id:45,
+  show:"تیری ملاقات کے لیے جانان میں بے قرار ہوں",
+  show2:"تیری ملاقات کے لیے جانان میں بے قرار ہوں",
+  copy:"ﻢﻳ ﻩﺭﺍﺮﻗ ﻲﺑ ﻪﻧﺎﻧﺎﺟ ،ﻲﺴﭘ ﻥﺪﻳﺩ ﻪﭘ ﺎﺘﺳ"
+},
+
+{
+  id:46,
+  show:"ستا په مينه كى ياره زه سوزى او بي انگاره يم",
+  show2:"یار، میں تیری محبت میں جل کر انگارہ (کوئلہ) بن گئی ہوں",
+  copy:"ﻢﻳ ﻩﺭﺎﮕﻧﺍ ﻲﺑ ﻭﺍ ﻯﺯﻮﺳ ﻩﺯ ﻩﺭﺎﻳ ﻰﻛ ﻪﻨﻴﻣ ﻪﭘ ﺎﺘﺳ"
+},
+
+{
+  id:47,
+  show:"په زڑمه غم دى ياره، تا پسي جاڑم",
+  show2:"میرے دل کے اندر غم ہے تیرے لیے میں رورہی ہوں",
+  copy:"ﻡﮌﺎﺟ ﻲﺴﭘ ﺎﺗ ،ﻩﺭﺎﻳ ﻯﺩ ﻢﻏ ﻪﻣﮌﺯ ﻪﭘ"
+},
+
+{
+  id:48,
+  show:"عجيبه منافقان دى په دے خار كے",
+  show2:"ﮯﻛ ﺭﺎﺧ ﮮﺩ ﻪﭘ ﻯﺩ ﻥﺎﻘﻓﺎﻨﻣ ﻪﺒﻴﺠﻋ",
+  copy:"عجیب منافق ہیں اس شہر میں"
+},
+
+{
+  id:49,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:50,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:51,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:52,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:53,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:54,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:55,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:56,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:57,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:58,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:59,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:60,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:61,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:62,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:63,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:64,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:65,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:66,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:67,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:68,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:69,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:70,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:71,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:72,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:73,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:74,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:75,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:76,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:77,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:78,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:79,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:80,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:81,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:82,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:83,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:84,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:85,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:86,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:87,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:88,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:89,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:90,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:91,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:92,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:93,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:94,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:95,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:96,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:97,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:98,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:99,
+  show:" ",
+  show2:" ",
+  copy:" "
+},
+
+{
+  id:100,
+  show:" ",
+  show2:" ",
+  copy:" "
+}
+
+];
+
+// ===== AUTO DATA =====
+const autoQuotes =
+Array.from({length:50},(_,i)=>({
+
+  id:i+100,
+
+  show:"یہ قول نمبر "+(i+1),
+
+  show2:"یہ دوسری لائن "+(i+1),
+
+  copy:"text "+(i+1)
+
+}));
+
+// ===== MERGE =====
+const quotes =
+[...customQuotes, ...autoQuotes];
+
+// ===== SETTINGS =====
+let page = 1;
+
+let limit = 20;
+
+let filtered = [...quotes];
+
+// ===== RENDER =====
+function render(){
+
+  let list =
+  document.getElementById("list");
+
+  list.innerHTML = "";
+
+  let data =
+  filtered.slice(0, page * limit);
+
+  data.forEach(q=>{
+
+    let div =
+    document.createElement("div");
+
+    div.className = "card";
+
+    div.innerHTML = `
+
+      <div class="pashtoText">
+      ${q.show}
+      </div>
+
+      <div class="urduText">
+      ${q.show2}
+      </div>
+
+      <button class="copy"
+      onclick="copyText('${q.copy}')">
+      Copy
+      </button>
+
+    `;
+
+    list.appendChild(div);
+
+  });
+}
+
+// ===== COPY =====
+function copyText(text){
+
+  navigator.clipboard
+  .writeText(text);
+
+  alert("Copied: " + text);
+}
+
+// ===== LOAD MORE =====
+function loadMore(){
+
+  page++;
+
+  render();
+}
+
+// ===== SEARCH =====
+function filterData(){
+
+  let val =
+  document.getElementById("search")
+  .value
+  .toLowerCase();
+
+  filtered = quotes.filter(q =>
+
+    q.show.toLowerCase().includes(val) ||
+
+    q.show2.toLowerCase().includes(val) ||
+
+    q.copy.toLowerCase().includes(val)
+
+  );
+
+  page = 1;
+
+  render();
+}
+
+// ===== INIT =====
+render();
+
+</script>
+
+</body>
+</html>
